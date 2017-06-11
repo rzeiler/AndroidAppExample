@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">CashTracker</string>
+    <string name="sSettings">Settings</string>
+    <string name="sSave">Speichern</string>
+    <string name="sRemove">Löschen</string>
+    <string name="sDescription">Beschreibung</string>
+    <string name="sSum">Summe</string>
+    <string name="sEuro">0.00</string>
+    <string name="sDate">Datum</string>
+    <string name="sRepeat">Wiederholen</string>
+    <string name="sCategorys">Kategorien</string>
+
+    <string name="sMonth">Monat</string>
+    <string name="sDay">Tag</string>
+    <string name="sYear">Jahr</string>
+    <string name="lbDots">&#8230;</string>
+    <string name="sYes">Ja</string>
+    <string name="sNo">Nein</string>
+
+    <string name="sEmpty">Dieses Feld ist erforderlich!</string>
+    <string name="sError">Bitte prüfen Sie Ihren Eingaben!</string>
+
+    <string name="sConfirmremove">Wollen Sie den eintrag %1$s wirklich löschen?</string>
+    <string name="sRemovesuccessfully">%1$s wurde gelöscht.</string>
+    <string name="sRemovefaild">%1$s konnte nicht gelöscht werden!</string>
+
+    <string name="sPastesuccessfully">%1$s wurde verschoben.</string>
+    <string name="sPastefaild">%1$s konnte nicht verschoben werden!</string>
+
+    <string name="sNew">Neu</string>
+    <string name="sEdit">Bearbeiten</string>
+
+    <string name="sSavesuccessfully">%1$s gespeichert.</string>
+
+
+    <string-array name="repeat_arrays">
+        <item>Einmalig</item>
+        <item>Wöchentlich</item>
+        <item>Monatlich</item>
+        <item>Jährlich</item>
+    </string-array>
+    <string-array name="price_range">
+        <item>diesen Monats</item>
+        <item>der letzten 3 Monate</item>
+        <item>diesen Jahres</item>
+        <item>Gesamtzeitraum</item>
+    </string-array>
+    <string-array name="price_range_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+</resources>

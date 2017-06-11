@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreylighten">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/testsadgasvdj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/sDescription"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/etCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:imeOptions="actionNext"
+                android:inputType="text">
+
+                <requestFocus />
+            </EditText>
+
+            <include layout="@layout/control_datepicker" />
+
+            <TextView
+                android:id="@+id/tvFavo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="12sp" />
+
+            <RatingBar
+                android:id="@+id/rbPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:rating="0.0"
+                android:stepSize="1.0" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

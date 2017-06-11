@@ -1,0 +1,78 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreylighten">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/sDescription"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="@string/sDescription"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:longClickable="false"
+                android:maxLines="8"
+                android:minLines="2"
+                android:scrollbars="vertical">
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/sSum"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/etSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/sEuro"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:longClickable="false" />
+
+            <Spinner
+                android:id="@+id/sRepeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/repeat_arrays"
+                android:prompt="@string/sRepeat" />
+
+            <include layout="@layout/control_datepicker" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
