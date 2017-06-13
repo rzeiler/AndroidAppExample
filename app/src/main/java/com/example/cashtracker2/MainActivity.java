@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     public static Category _category = null;
     public static Cash _cash = null;
     public static Cash _cutcash = null;
+    public static Boolean checkMonth = true;
+    public static Boolean checkYear = true;
     private Toolbar toolbar;
 
     @Override
@@ -28,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         CategoryList list = new CategoryList();
         getFragmentManager().beginTransaction().add(R.id.content_frame, list).commit();
-
-
     }
 
 
@@ -67,5 +67,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 
 }

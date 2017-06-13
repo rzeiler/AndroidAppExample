@@ -9,10 +9,10 @@ public class Cash {
     long _Id = -1;
     String _Content;
     long _CreateDate;
-    int _isDeleted;
+    int _isDeleted = 0;
     int _Category;
     int _Repeat;
-    int _IsCloned;
+    int _IsCloned = 0;
     double _Total;
 
     // Empty constructor
@@ -27,12 +27,12 @@ public class Cash {
     }
 
     // constructor
-    public Cash(String Title, long CreateDate, int isDeleted, int Category, int Rating, double Total, int IsCloned) {
+    public Cash(String Title, long CreateDate, int isDeleted, int Category, int Repeat, double Total, int IsCloned) {
         this._Content = Title;
         this._CreateDate = CreateDate;
         this._isDeleted = isDeleted;
         this._Category = Category;
-        this._Repeat = Rating;
+        this._Repeat = Repeat;
         this._Total = Total;
         this._IsCloned = IsCloned;
     }

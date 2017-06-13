@@ -411,8 +411,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "";
         Double result = 0.0;
-        Log.w("Datum", DeDateFormat.format(c.getTime()));
-
         /* year and month */
         Cursor cursor = null;
         if (category == null) {
@@ -435,7 +433,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Double getSum(int Range, String user) {
         return getSum(Range, user, null);
     }
-
 
     public List<Category> getCategorys(String filter, String search) {
         List<Category> _list = new ArrayList<>();
@@ -530,10 +527,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_sREPEAT, _cash.getRepeat());
         values.put(KEY_sTOTAL, _cash.getTotal());
         values.put(KEY_sISDELETED, _cash.getisDeleted());
-        values.put(KEY_sISCLONED, 0);
-        // updating row
-
-        Log.w("updateCash", _cash.toString());
+        values.put(KEY_sISCLONED,_cash.getIsCloned());
 
         return db.update(TABLE_CASH, values, KEY_sID + " = ?", new String[]{String.valueOf(_cash.getCashID())});
     }

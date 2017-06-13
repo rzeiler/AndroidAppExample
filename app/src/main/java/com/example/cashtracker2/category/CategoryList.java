@@ -1,10 +1,13 @@
 package com.example.cashtracker2.category;
 
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -15,9 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.cashtracker2.DatabaseHandler;
+import com.example.cashtracker2.Dialogs;
 import com.example.cashtracker2.MainActivity;
 import com.example.cashtracker2.MainFragment;
 import com.example.cashtracker2.R;
@@ -36,6 +41,8 @@ public class CategoryList extends MainFragment {
     private RecyclerView.LayoutManager _LayoutManager;
     private View v;
     private SharedPreferences _sp;
+    private ProgressDialog progressDialog;
+    private ProgressBar pbYearLimit, pbMonthLimit;
 
     private SimpleDateFormat DeDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -105,10 +112,43 @@ public class CategoryList extends MainFragment {
         Double sumYear = db.getSum(Calendar.YEAR, _sp.getString("_active_user", "default"));
         Double sumMonth = db.getSum(Calendar.MONTH, _sp.getString("_active_user", "default"));
         TextView tvYear = (TextView) v.findViewById(R.id.tvYearLimit);
-        tvYear.setText(String.format("%.2f €", sumYear));
+        tvYear.setText(String.format("Jahr %.2f €", sumYear));
         TextView tvMonth = (TextView) v.findViewById(R.id.tvMonthLimit);
-        tvMonth.setText(String.format("%.2f €", sumMonth));
+        tvMonth.setText(String.format("Monat %.2f €", sumMonth));
 
+        pbYearLimit = (ProgressBar) v.findViewById(R.id.pbYearLimit);
+        pbMonthLimit = (ProgressBar) v.findViewById(R.id.pbMonthLimit);
+        Dialogs d = new Dialogs(getActivity());
+        /* limit  */
+        double iLm = Double.parseDouble(_sp.getString("limitMonth",
+                "1000"));
+        double iLy = Double.parseDouble(_sp.getString("limitYear",
+                "12000"));
+        double progressstate = 0;
+        if (iLy < sumYear) {
+            progressstate = 100;
+        } else {
+            progressstate = sumYear * 100 / iLy;
+        }
+        if (_sp.getBoolean("cbxAlert", false) && progressstate == 100&& MainActivity.checkYear) {
+            /* alert */
+            d.Alert(null, "Jahresgrenze überschritten!", false);
+            MainActivity.checkYear = false;
+        }
+        pbYearLimit.setProgress((int) progressstate);
+        progressstate = 0;
+        if (iLm < sumMonth) {
+            progressstate = 100;
+        } else {
+            progressstate = sumMonth * 100 / iLm;
+        }
+        if (_sp.getBoolean("cbxAlert", false) && progressstate == 100 && MainActivity.checkMonth) {
+            /* alert */
+            d.Alert(null, "Monatsgrenze überschritten!", false);
+            MainActivity.checkMonth = false;
+        }
+        pbMonthLimit.setProgress((int) progressstate);
+        /* limit end */
         _RecyclerView = (RecyclerView) v.findViewById(R.id.recvie);
         _RecyclerView.setHasFixedSize(true);
         _LayoutManager = new LinearLayoutManager(getActivity());
@@ -125,50 +165,71 @@ public class CategoryList extends MainFragment {
 
         setList(null);
 
-        Calendar c, b;
-        for (int i = 1; i < 4; i++) {
-            c = Calendar.getInstance();
-            if (i == 1) {
-                c.set(Calendar.WEEK_OF_YEAR, c.get(Calendar.WEEK_OF_YEAR) - 1);
-
-            }
-            if (i == 2) {
-                c.set(Calendar.MONTH, c.get(Calendar.MONTH) - 1);
-            }
-            if (i == 3) {
-                c.set(Calendar.YEAR, c.get(Calendar.YEAR) - 1);
-            }
-            Log.w("Index", String.valueOf(i));
-            List<Cash> lc = db.getCash(" iscloned=0 AND repeat=" + i + " AND int_create_date <= " + c.getTimeInMillis() + " ");
-            for (Cash cash : lc) {
-
-                b = Calendar.getInstance();
-                b.setTime(new Date(cash.getCreateDate()));
-                if (i == 1) {
-                    b.set(Calendar.WEEK_OF_YEAR, b.get(Calendar.WEEK_OF_YEAR) + 1);
-                }
-                if (i == 2) {
-                    b.set(Calendar.MONTH, b.get(Calendar.MONTH) + 1);
-                }
-                if (i == 3) {
-                    b.set(Calendar.YEAR, b.get(Calendar.YEAR) + 1);
-                }
-                /*
-                cash.setIsCloned(1);
-                db.saveCash(cash);
-                Cash nc = new Cash();
-                nc = cash;
-                nc.setCashID(-1);
-                nc.setCreateDate(b.getTimeInMillis());
-                db.saveCash(nc);
-                */
-
-            }
-
-        }
-
+        new CheckRepeats().execute(db, v);
 
         return v;
+    }
+
+    private class CheckRepeats extends AsyncTask<Object, Integer, Integer> {
+
+        private View v;
+
+        @Override
+        protected Integer doInBackground(Object... params) {
+            v = (View) params[1];
+            DatabaseHandler db = (DatabaseHandler) params[0];
+            Calendar c, b;
+            Integer r = 0;
+            for (int i = 1; i < 4; i++) {
+                c = Calendar.getInstance();
+                if (i == 1) {
+                    c.set(Calendar.WEEK_OF_YEAR, c.get(Calendar.WEEK_OF_YEAR) - 1);
+                }
+                if (i == 2) {
+                    c.set(Calendar.MONTH, c.get(Calendar.MONTH) - 1);
+                }
+                if (i == 3) {
+                    c.set(Calendar.YEAR, c.get(Calendar.YEAR) - 1);
+                }
+                Log.w("Index", String.valueOf(i));
+                List<Cash> lc = db.getCash(" iscloned=0 AND repeat=" + i + " AND int_create_date <= " + c.getTimeInMillis() + " ");
+                for (Cash cash : lc) {
+                    b = Calendar.getInstance();
+                    cash.setIsCloned(1);
+
+                    if (db.saveCash(cash) > 0) {
+                        b.setTime(new Date(cash.getCreateDate()));
+                        Log.w("OldDate", DeDateFormat.format(new Date(b.getTimeInMillis())));
+                        if (i == 1) {
+                            b.set(Calendar.WEEK_OF_YEAR, b.get(Calendar.WEEK_OF_YEAR) + 1);
+                        }
+                        if (i == 2) {
+                            b.set(Calendar.MONTH, b.get(Calendar.MONTH) + 1);
+                        }
+                        if (i == 3) {
+                            b.set(Calendar.YEAR, b.get(Calendar.YEAR) + 1);
+                        }
+                        Log.w("cash", cash.toString());
+                        r++;
+                        Cash nc = new Cash(cash.getContent(), b.getTimeInMillis(), 0, cash.getCategory(), cash.getRepeat(), cash.getTotal(), 0);
+                        db.saveCash(nc);
+                    }
+                }
+            }
+            return r;
+        }
+
+        protected void onPostExecute(Integer b) {
+            if (b > 0) {
+                Snackbar.make(v, String.format(getString(R.string.sRepeatsfind), b), Snackbar.LENGTH_LONG).setAction("Ok", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setList(null);
+                    }
+                }).show();
+            }
+        }
+
     }
 
 

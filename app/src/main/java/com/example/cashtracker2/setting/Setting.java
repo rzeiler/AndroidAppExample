@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 
 import com.example.cashtracker2.DatabaseHandler;
 import com.example.cashtracker2.R;
-import com.example.cashtracker2.Services;
 import com.example.cashtracker2.cash.Cash;
 import com.example.cashtracker2.category.Category;
 
@@ -125,6 +123,7 @@ public class Setting extends PreferenceFragment implements SharedPreferences.OnS
             Toast.makeText(getActivity(), "Documents Erro", Toast.LENGTH_LONG).show();
         }
 
+
         Preference btnBackup = findPreference("btnBackup");
         btnBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -136,20 +135,7 @@ public class Setting extends PreferenceFragment implements SharedPreferences.OnS
             }
         });
 
-        final CheckBoxPreference cbxAutoService = (CheckBoxPreference) findPreference("cbxAutoService");
-        cbxAutoService
-                .setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(
-                            Preference preference, Object newValue) {
-                        if ((Boolean) newValue) {
-                            Services.setReceiver(context);
-                        } else {
-                            Services.cancelReceiver(context);
-                        }
-                        return true;
-                    }
-                });
+
         this.view = view;
     }
 

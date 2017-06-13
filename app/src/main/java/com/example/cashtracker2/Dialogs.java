@@ -2,10 +2,8 @@ package com.example.cashtracker2;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -30,10 +28,17 @@ public class Dialogs {
     }
 
     public void Alert(View.OnClickListener y, String m) {
+        Alert(y, m, false);
+    }
+
+    public void Alert(View.OnClickListener y, String m, Boolean showNo) {
         yes = y;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(m).setPositiveButton(R.string.sYes, dialogClickListener)
-                .setNegativeButton(R.string.sNo, dialogClickListener).show();
+        builder.setMessage(m).setPositiveButton(R.string.sYes, dialogClickListener);
+        if (showNo) {
+            builder.setNegativeButton(R.string.sNo, dialogClickListener);
+        }
+        builder.show();
     }
 
     public Dialog OpenDatePicker(Button button, Date datetime) {
@@ -51,7 +56,9 @@ public class Dialogs {
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    yes.onClick(null);
+                    if (yes != null) {
+                        yes.onClick(null);
+                    }
                     break;
             }
         }

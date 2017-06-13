@@ -32,6 +32,8 @@
 
     <string name="sSavesuccessfully">%1$s gespeichert.</string>
 
+    <string name="sRepeatsfind">%1$d neue Ausgaben eingestellt.</string>
+
 
     <string-array name="repeat_arrays">
         <item>Einmalig</item>

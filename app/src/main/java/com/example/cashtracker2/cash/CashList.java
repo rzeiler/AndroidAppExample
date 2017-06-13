@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.cashtracker2.DatabaseHandler;
@@ -38,6 +39,7 @@ public class CashList extends MainFragment {
     private View.OnClickListener paste;
     private int msg;
     private View v;
+    private ProgressBar pbYearLimit, pbMonthLimit;
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -110,9 +112,35 @@ public class CashList extends MainFragment {
         Double sumYear = db.getSum(Calendar.YEAR, _sp.getString("_active_user", "default"), MainActivity._category);
         Double sumMonth = db.getSum(Calendar.MONTH, _sp.getString("_active_user", "default"), MainActivity._category);
         TextView tvYear = (TextView) v.findViewById(R.id.tvYearLimit);
-        tvYear.setText(String.format("%.2f €", sumYear));
+        tvYear.setText(String.format("Jahr %.2f €", sumYear));
         TextView tvMonth = (TextView) v.findViewById(R.id.tvMonthLimit);
-        tvMonth.setText(String.format("%.2f €", sumMonth));
+        tvMonth.setText(String.format("Monat %.2f €", sumMonth));
+
+
+        pbYearLimit = (ProgressBar) v.findViewById(R.id.pbYearLimit);
+        pbMonthLimit = (ProgressBar) v.findViewById(R.id.pbMonthLimit);
+
+        /* limit  */
+        double iLm = Double.parseDouble(_sp.getString("limitMonth",
+                "1000"));
+        double iLy = Double.parseDouble(_sp.getString("limitYear",
+                "12000"));
+        double progressstate = 0;
+        if (iLy < sumYear) {
+            progressstate = 100;
+        } else {
+            progressstate = sumYear * 100 / iLy;
+        }
+        pbYearLimit.setProgress((int) progressstate);
+        progressstate = 0;
+        if (iLm < sumMonth) {
+            progressstate = 100;
+        } else {
+            progressstate = sumMonth * 100 / iLm;
+        }
+        pbMonthLimit.setProgress((int) progressstate);
+        /* limit end */
+
 
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
