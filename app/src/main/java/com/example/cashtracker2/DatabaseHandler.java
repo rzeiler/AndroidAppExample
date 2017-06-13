@@ -371,8 +371,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             /* current date smaller */
             cursor = db.rawQuery(query, null);
         }
-        try
-        {
+        try {
 
             if (cursor.moveToFirst()) {
                 do {
@@ -399,12 +398,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Double getSum(int Range, String user, Category category) {
         Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.DAY_OF_MONTH, 0);
         switch (Range) {
-            case Calendar.MONTH:
-                c.set(Calendar.DAY_OF_MONTH, 1);
-                break;
             case Calendar.YEAR:
-                c.set(Calendar.DAY_OF_MONTH, 1);
                 c.set(Calendar.MONTH, 0);
                 break;
         }
@@ -439,7 +437,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         //AlterTable(db);
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_MONTH, 1);
+        c.set(Calendar.DAY_OF_MONTH, 0);
+
         if (filter != null) {
             filter = " WHERE a.user='" + filter + "'";
         } else {
@@ -527,7 +526,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_sREPEAT, _cash.getRepeat());
         values.put(KEY_sTOTAL, _cash.getTotal());
         values.put(KEY_sISDELETED, _cash.getisDeleted());
-        values.put(KEY_sISCLONED,_cash.getIsCloned());
+        values.put(KEY_sISCLONED, _cash.getIsCloned());
 
         return db.update(TABLE_CASH, values, KEY_sID + " = ?", new String[]{String.valueOf(_cash.getCashID())});
     }
