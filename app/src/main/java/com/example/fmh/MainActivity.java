@@ -1,13 +1,11 @@
 package com.example.cashtracker2;
 
-import android.app.ActivityManager;
-import android.content.Context;
+import com.app.fmh.R;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.cashtracker2.cash.Cash;
 import com.example.cashtracker2.category.Category;

@@ -1,4 +1,4 @@
-package com.example.cashtracker2.category;
+package com.app.fhm.category;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.cashtracker2.R;
+import com.app.fhm.R;
 
 import java.text.DateFormat;
 import java.util.List;

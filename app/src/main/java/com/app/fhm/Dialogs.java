@@ -1,4 +1,4 @@
-package com.example.cashtracker2;
+package com.app.fhm;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -12,6 +12,8 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import com.app.fhm.R;
 
 /**
  * Created by Ralf on 12.05.2017.

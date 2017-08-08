@@ -283,6 +283,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //                e.printStackTrace();
 //            }
 //        }
+        if (newVersion > oldVersion && newVersion == 4) {
+            AlterTable(db);
+        }
+
+
     }
 
     public String tsd(String s) {

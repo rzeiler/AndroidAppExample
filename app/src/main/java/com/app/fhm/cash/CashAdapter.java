@@ -1,4 +1,4 @@
-package com.example.cashtracker2.cash;
+package com.app.fhm.cash;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.cashtracker2.R;
+import com.app.fhm.R;
 
 
 import java.text.SimpleDateFormat;

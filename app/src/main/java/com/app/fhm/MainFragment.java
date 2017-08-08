@@ -1,4 +1,4 @@
-package com.example.cashtracker2;
+package com.app.fhm;
 
 
 import android.app.Fragment;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
+
+import com.app.fhm.R;
 
 /**
  * Created by Ralf on 31.05.2017.

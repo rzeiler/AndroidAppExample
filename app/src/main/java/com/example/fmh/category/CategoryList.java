@@ -25,7 +25,7 @@ import com.example.cashtracker2.DatabaseHandler;
 import com.example.cashtracker2.Dialogs;
 import com.example.cashtracker2.MainActivity;
 import com.example.cashtracker2.MainFragment;
-import com.example.cashtracker2.R;
+import com.app.fmh.R;
 import com.example.cashtracker2.cash.Cash;
 import com.example.cashtracker2.cash.CashList;
 

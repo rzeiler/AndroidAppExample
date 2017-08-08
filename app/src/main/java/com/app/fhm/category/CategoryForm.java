@@ -1,4 +1,4 @@
-package com.example.cashtracker2.category;
+package com.app.fhm.category;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,11 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
-import com.example.cashtracker2.DatabaseHandler;
-import com.example.cashtracker2.Dialogs;
-import com.example.cashtracker2.MainActivity;
-import com.example.cashtracker2.MainFragment;
-import com.example.cashtracker2.R;
+import com.app.fhm.DatabaseHandler;
+import com.app.fhm.Dialogs;
+import com.app.fhm.MainActivity;
+import com.app.fhm.MainFragment;
+import com.app.fhm.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

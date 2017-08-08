@@ -1,7 +1,6 @@
 package com.example.cashtracker2.cash;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
